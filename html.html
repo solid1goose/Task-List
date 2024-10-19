@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>task list</title>
+    <link href="css.css" rel="stylesheet" />
+</head>
+
+<body>
+
+    <button id="clearTasks">очистить список</button>
+    <button id="addTask">добавить задачу</button>
+
+    <script>
+        addTask.onclick = function (event) {
+            let getBox = document.createElement('div')
+            getBox.id = 'GetBox'
+            addTask.after(getBox)
+
+            let inputTask = document.createElement('input')
+            inputTask.id = 'GetTask'
+
+            let buttonCancel = document.createElement('button')
+            let buttonConfirm = document.createElement('button')
+            buttonCancel.id = 'buttonCancel'
+            buttonConfirm.id = 'buttonConfirm'
+            buttonCancel.textContent = 'отмена'
+            buttonConfirm.textContent = 'добавить'
+
+            getBox.prepend(buttonConfirm)
+            getBox.prepend(buttonCancel)
+            getBox.prepend(inputTask)
+
+            buttonCancel.onclick = function () {
+                getBox.remove()
+            }
+
+            buttonConfirm.onclick = function () {
+                let task = document.createElement('p')
+                task.textContent = inputTask.value
+                if (task.textContent == '') {
+                    inputTask.style.setProperty('background-color', 'rgb(68, 39, 39)')
+                } else {
+                    addTask.after(task)
+                    getBox.remove()
+                }
+
+
+            }
+        }
+
+        clearTasks.onclick = function (event) {
+            let arr = document.querySelectorAll('p')
+            for (elem of arr) {
+                elem.remove()
+            }
+        }
+    </script>
+</body>
+
+</html>
