@@ -16,47 +16,64 @@
     <script>
         addTask.onclick = function (event) {
             let getBox = document.createElement('div')
-            getBox.id = 'GetBox'
             addTask.after(getBox)
 
             let inputTask = document.createElement('input')
-            inputTask.id = 'GetTask'
+            inputTask.setAttribute('type', 'text')
 
             let buttonCancel = document.createElement('button')
             let buttonConfirm = document.createElement('button')
             buttonCancel.id = 'buttonCancel'
             buttonConfirm.id = 'buttonConfirm'
-            buttonCancel.textContent = 'отмена'
-            buttonConfirm.textContent = 'добавить'
+            buttonCancel.textContent = '❌'
+            buttonConfirm.textContent = '✔️'
 
             getBox.prepend(buttonConfirm)
             getBox.prepend(buttonCancel)
             getBox.prepend(inputTask)
+            addTask.setAttribute('disabled', '');
 
-            buttonCancel.onclick = function () {
-                getBox.remove()
-            }
+            buttonCancel.onclick = SpentGetBox
 
             buttonConfirm.onclick = function () {
+                let taskBox = document.createElement('div')
+                taskBox.classList.add('task')
+
+                let checkTaskExecute = document.createElement('button')
+                checkTaskExecute.className = 'buttonCheckExecute'
                 let task = document.createElement('p')
                 task.textContent = inputTask.value
                 if (task.textContent == '') {
                     inputTask.style.setProperty('background-color', 'rgb(68, 39, 39)')
                 } else {
-                    addTask.after(task)
-                    getBox.remove()
+                    addTask.after(taskBox)
+                    taskBox.prepend(task)
+                    taskBox.prepend(checkTaskExecute)
+                    SpentGetBox()
                 }
+            }
 
-
+            function SpentGetBox() {
+                getBox.remove()
+                addTask.removeAttribute('disabled')
             }
         }
 
         clearTasks.onclick = function (event) {
-            let arr = document.querySelectorAll('p')
+            let arr = document.querySelectorAll('.task')
             for (elem of arr) {
                 elem.remove()
             }
         }
+
+        document.addEventListener('click', function () {
+            if (!(event.target.classList.contains('buttonCheckExecute'))) return;
+            event.target.classList.toggle('execute')
+            event.target.nextElementSibling.classList.toggle('execute')
+            console.log(event.target)
+        })
+
+
     </script>
 </body>
 

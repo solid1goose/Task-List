@@ -1,4 +1,4 @@
-*{
+* {
     color: white;
     font-weight: bold;
     font-size: 1.5rem;
@@ -6,13 +6,48 @@
     padding: 0px;
 }
 
-body{
+body {
     padding-top: 20px;
     padding-left: 500px;
     background-color: rgb(21, 21, 21);
 }
 
-button{
+p {
+    padding-bottom: 15px;
+    margin: 7px;
+    display: inline;
+}
+
+button:hover[disabled=""],
+button:active[disabled=""] {
+    box-shadow: none;
+    background-color: rgb(35, 36, 46);
+}
+
+.task {
+    align-items: center;
+    display: flex;
+    height: 50px;
+}
+
+p.execute{
+    text-decoration: line-through;
+    color: rgb(102, 102, 102);
+} 
+
+.buttonCheckExecute.execute {
+    background-color: rgb(42, 59, 42)
+}
+
+.buttonCheckExecute {
+    border-radius: 30px;
+    height: 5px;
+    width: 5px;
+    margin: 0px;
+    margin-bottom: 5px;
+}
+
+button {
     margin: 10px;
     padding: 10px;
     background-color: rgb(35, 36, 46);
@@ -29,15 +64,15 @@ button:active {
     background-color: rgb(42, 45, 70);
 }
 
-#buttonCancel{
+#buttonCancel {
     background-color: rgb(68, 39, 39);
 }
 
-#buttonConfirm{
+#buttonConfirm {
     background-color: rgb(29, 29, 67);
 }
 
-input{
+input[type='text'] {
     height: 75px;
     width: 355px;
     background-color: rgb(35, 36, 46);
@@ -45,7 +80,3 @@ input{
     border-radius: 8px;
     margin: 10px;
 }
-
-
-
-
