@@ -1,4 +1,5 @@
 * {
+    box-sizing: border-box;
     color: white;
     font-weight: bold;
     font-size: 1.5rem;
@@ -8,7 +9,6 @@
 
 body {
     padding-top: 20px;
-    padding-left: 500px;
     background-color: rgb(21, 21, 21);
 }
 
@@ -18,33 +18,38 @@ p {
     display: inline;
 }
 
-button:hover[disabled=""],
-button:active[disabled=""] {
-    box-shadow: none;
-    background-color: rgb(35, 36, 46);
+p.execute {
+    text-decoration: line-through;
+    color: rgb(102, 102, 102);
 }
 
 .task {
+    margin: 15px;
     align-items: center;
     display: flex;
     height: 50px;
 }
 
-p.execute{
-    text-decoration: line-through;
-    color: rgb(102, 102, 102);
-} 
-
-.buttonCheckExecute.execute {
-    background-color: rgb(42, 59, 42)
-}
-
-.buttonCheckExecute {
+.buttonCheckExecute,
+.deleteTaskButton.execute {
     border-radius: 30px;
     height: 5px;
     width: 5px;
     margin: 0px;
     margin-bottom: 5px;
+}
+
+.deleteTaskButton.execute {
+    background-color: rgb(74, 36, 36);
+    display: block;
+}
+
+.buttonCheckExecute.execute {
+    background-color: rgb(42, 59, 42)
+}
+
+.deleteTaskButton {
+    display: none;
 }
 
 button {
@@ -64,17 +69,45 @@ button:active {
     background-color: rgb(42, 45, 70);
 }
 
+button:hover[disabled=""],
+button:active[disabled=""] {
+    box-shadow: none;
+    background-color: rgb(35, 36, 46);
+}
+
+#getBox {
+    align-items: center;
+    display: flex;
+}
+
+#buttonConfirm,
+#buttonCancel {
+    padding: 0px;
+    height: 60px;
+    width: 60px;
+    background-color: rgb(68, 39, 39);
+}
+
 #buttonCancel {
     background-color: rgb(68, 39, 39);
 }
 
+#buttonCancel:hover {
+    background-color: rgb(94, 43, 43);
+}
+
 #buttonConfirm {
+    padding-bottom: 15px;
     background-color: rgb(29, 29, 67);
 }
 
+#buttonConfirm:hover {
+    background-color: rgb(28, 28, 100);
+}
+
 input[type='text'] {
-    height: 75px;
-    width: 355px;
+    height: 60px;
+    width: 300px;
     background-color: rgb(35, 36, 46);
     border: 2px solid black;
     border-radius: 8px;

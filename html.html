@@ -31,22 +31,30 @@
             getBox.prepend(buttonConfirm)
             getBox.prepend(buttonCancel)
             getBox.prepend(inputTask)
+            getBox.id = 'getBox'
             addTask.setAttribute('disabled', '');
 
             buttonCancel.onclick = SpentGetBox
 
             buttonConfirm.onclick = function () {
+
                 let taskBox = document.createElement('div')
                 taskBox.classList.add('task')
 
                 let checkTaskExecute = document.createElement('button')
                 checkTaskExecute.className = 'buttonCheckExecute'
+
+                let deleteTask = document.createElement('button')
+                deleteTask.className = 'deleteTaskButton'
+
                 let task = document.createElement('p')
                 task.textContent = inputTask.value
+
                 if (task.textContent == '') {
                     inputTask.style.setProperty('background-color', 'rgb(68, 39, 39)')
                 } else {
                     addTask.after(taskBox)
+                    taskBox.prepend(deleteTask)
                     taskBox.prepend(task)
                     taskBox.prepend(checkTaskExecute)
                     SpentGetBox()
@@ -69,8 +77,13 @@
         document.addEventListener('click', function () {
             if (!(event.target.classList.contains('buttonCheckExecute'))) return;
             event.target.classList.toggle('execute')
-            event.target.nextElementSibling.classList.toggle('execute')
-            console.log(event.target)
+            event.target.parentElement.children[1].classList.toggle('execute')
+            event.target.parentElement.children[2].classList.toggle('execute')
+        })
+        
+        document.addEventListener('click', function () {
+            if (!(event.target.classList.contains('deleteTaskButton'))) return;
+            event.target.parentElement.remove()
         })
 
 
