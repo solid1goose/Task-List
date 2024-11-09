@@ -23,6 +23,23 @@ p.execute {
     color: rgb(102, 102, 102);
 }
 
+#main{
+    display: grid;
+    grid-template-areas: "a b";
+}
+
+#authorizationBar {
+
+}
+
+#inputLogin, #inputPassword {
+    padding: 7px;
+}
+#postdata, #getdata {
+    font-size: 29px;
+    width: 300px;
+}
+
 .task {
     margin: 15px;
     align-items: center;

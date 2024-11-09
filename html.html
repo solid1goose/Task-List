@@ -9,10 +9,20 @@
 </head>
 
 <body>
-
-    <button id="clearTasks">очистить список</button>
-    <button id="addTask">добавить задачу</button>
-
+    <div id="main">
+        <div id="taskBar">
+            <button id="clearTasks">очистить список</button>
+            <button id="addTask">добавить задачу</button>
+        </div>
+        <div id="authorizationBar">
+            <form id="authorizationForm">
+                <input id="inputLogin" type="text" name="login" value="login">
+                <input id="inputPassword" type="text" name="password" value="password">
+            </form>
+            <button id="postdata">отправить данные</button>
+            <button id="getdata">получить данные</button>
+        </div>
+    </div>
     <script>
         addTask.onclick = function (event) {
             let getBox = document.createElement('div')
@@ -80,11 +90,25 @@
             event.target.parentElement.children[1].classList.toggle('execute')
             event.target.parentElement.children[2].classList.toggle('execute')
         })
-        
+
         document.addEventListener('click', function () {
             if (!(event.target.classList.contains('deleteTaskButton'))) return;
             event.target.parentElement.remove()
         })
+
+        getdata.onclick = function () {
+            fetch(`/task-list/php.php?login=${document.getElementById("inputLogin").value}&password=${document.getElementById("inputPassword").value}`)
+                .then(response => response.json())
+                .then(json => console.log(json))
+                .catch(error => console.log(error))
+        }
+
+        postdata.onclick = function () {
+            fetch('/task-list/php.php', {
+                method: 'POST',
+                body: new FormData(authorizationForm)
+            });
+        };
 
 
     </script>
