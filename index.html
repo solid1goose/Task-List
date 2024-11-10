@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>task list</title>
+    <!-- <link href="main-style.css" rel="stylesheet"/> -->
+</head>
+
+<body>
+    <div id="main">
+        <div id="taskBar">
+            <button id="clearTasks">очистить список</button>
+            <button id="addTask">добавить задачу</button>
+        </div>
+        <div id="authorizationBar">
+            <form id="authorizationForm">
+                <input id="inputLogin" type="text" name="login" value="login">
+                <input id="inputPassword" type="text" name="password" value="password">
+            </form>
+            <button id="postdata">отправить данные</button>
+            <button id="getdata">получить данные</button>
+        </div>
+    </div>
+    <script>
+        addTask.onclick = function (event) {
+            let getBox = document.createElement('div')
+            addTask.after(getBox)
+
+            let inputTask = document.createElement('input')
+            inputTask.setAttribute('type', 'text')
+
+            let buttonCancel = document.createElement('button')
+            let buttonConfirm = document.createElement('button')
+            buttonCancel.id = 'buttonCancel'
+            buttonConfirm.id = 'buttonConfirm'
+            buttonCancel.textContent = '❌'
+            buttonConfirm.textContent = '✔️'
+
+            getBox.prepend(buttonConfirm)
+            getBox.prepend(buttonCancel)
+            getBox.prepend(inputTask)
+            getBox.id = 'getBox'
+            addTask.setAttribute('disabled', '');
+
+            buttonCancel.onclick = SpentGetBox
+
+            buttonConfirm.onclick = function () {
+
+                let taskBox = document.createElement('div')
+                taskBox.classList.add('task')
+
+                let checkTaskExecute = document.createElement('button')
+                checkTaskExecute.className = 'buttonCheckExecute'
+
+                let deleteTask = document.createElement('button')
+                deleteTask.className = 'deleteTaskButton'
+
+                let task = document.createElement('p')
+                task.textContent = inputTask.value
+
+                if (task.textContent == '') {
+                    inputTask.style.setProperty('background-color', 'rgb(68, 39, 39)')
+                } else {
+                    addTask.after(taskBox)
+                    taskBox.prepend(deleteTask)
+                    taskBox.prepend(task)
+                    taskBox.prepend(checkTaskExecute)
+                    SpentGetBox()
+                }
+            }
+
+            function SpentGetBox() {
+                getBox.remove()
+                addTask.removeAttribute('disabled')
+            }
+        }
+
+        clearTasks.onclick = function (event) {
+            let arr = document.querySelectorAll('.task')
+            for (elem of arr) {
+                elem.remove()
+            }
+        }
+
+        document.addEventListener('click', function () {
+            if (!(event.target.classList.contains('buttonCheckExecute'))) return;
+            event.target.classList.toggle('execute')
+            event.target.parentElement.children[1].classList.toggle('execute')
+            event.target.parentElement.children[2].classList.toggle('execute')
+        })
+
+        document.addEventListener('click', function () {
+            if (!(event.target.classList.contains('deleteTaskButton'))) return;
+            event.target.parentElement.remove()
+        })
+
+        getdata.onclick = function () {
+            fetch(`/task-list/index-backend.php?login=${document.getElementById("inputLogin").value}&password=${document.getElementById("inputPassword").value}`)
+                .then(response => response.json())
+                .then(json => console.log(json))
+                .catch(error => console.log(error))
+        }
+
+        postdata.onclick = function () {
+            fetch('/task-list/index-backend.php', {
+                method: 'POST',
+                body: new FormData(authorizationForm)
+            });
+        };
+
+
+    </script>
+</body>
+
+</html>
