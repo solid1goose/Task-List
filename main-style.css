@@ -9,8 +9,7 @@
 
 body {
     padding-top: 20px;
-    /* background-color: rgb(21, 21, 21); */
-    background-color:blue;
+    background-color: rgb(21, 21, 21);
 }
 
 p {
@@ -38,7 +37,7 @@ p.execute {
 }
 #postdata, #getdata {
     font-size: 29px;
-    width: 500px;
+    width: 630px;
 }
 
 .task {

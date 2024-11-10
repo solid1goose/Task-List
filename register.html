@@ -1,17 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link href="css.css" rel="stylesheet"/>
+    <link href="main-style.css" rel="stylesheet" />
 </head>
+
 <body>
     <h1>регистрация:</h1>
-    <form id="authorizationForm">
+    <form id="registerForm">
         <input id="inputLogin" type="text" name="login" value="login">
         <input id="inputPassword" type="text" name="password" value="password">
     </form>
-    <button id="postdata">зарегистрироваться!</button>
+    <button id="regButton">зарегистрироваться!</button>
+
+
+    <script>
+        regButton.onclick = function () {
+            try {
+
+                fetch('/task-list/register.php', {
+                    method: 'POST',
+                    body: new FormData(registerForm)
+                })
+                    .then(response => response.json())
+                    .then(json => checkAnswer(json))
+                    .catch(error => console.log(error))
+            } catch (err) {
+
+                console.log(err)
+
+            } 
+        }
+        function checkAnswer(answer) {
+            if (answer == true) {
+                window.location.href = '/task-list/index.html';
+            }
+        }
+    </script>
+
 </body>
+
 </html>
