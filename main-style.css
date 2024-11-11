@@ -12,6 +12,10 @@ body {
     background-color: rgb(21, 21, 21);
 }
 
+a{
+    color: brown;
+}
+
 p {
     padding-bottom: 15px;
     margin: 7px;
@@ -28,16 +32,12 @@ p.execute {
     grid-template-areas: "a b";
 }
 
-/* #authorizationBar {
-
-} */
-
 #inputLogin, #inputPassword {
     padding: 7px;
 }
-#postdata, #getdata {
+#postData, #getData {
     font-size: 29px;
-    width: 630px;
+    width: 300px;
 }
 
 .task {

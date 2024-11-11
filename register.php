@@ -14,10 +14,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
         $conn->exec($postUser);  
     }
     catch(Exception $err){
-        echo json_encode(false);
+        echo false;
     } finally {
         if(!(isset($err))){
-            echo json_encode(true);
+            echo true;
         }
     }
     

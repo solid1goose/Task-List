@@ -25,13 +25,11 @@
                     method: 'POST',
                     body: new FormData(registerForm)
                 })
-                    .then(response => response.json())
+                    .then(response => response.text())
                     .then(json => checkAnswer(json))
                     .catch(error => console.log(error))
             } catch (err) {
-
                 console.log(err)
-
             } 
         }
         function checkAnswer(answer) {

@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>task list</title>
-    <link href="main-style.css" rel="stylesheet"/>
+    <link href="main-style.css" rel="stylesheet" />
 </head>
 
 <body>
@@ -15,11 +15,13 @@
             <button id="addTask">добавить задачу</button>
         </div>
         <div id="authorizationBar">
+            <h2>нет аккаунта? Зарегестрируйся - <a href="/task-list/register.html">здесь!</a> </h2>
             <form id="authorizationForm">
                 <input id="inputLogin" type="text" name="login" value="login">
                 <input id="inputPassword" type="text" name="password" value="password">
             </form>
-            <button id="postdata">отправить данные</button>
+            <button id="getData">получить данные</button>
+            <button id="postData">сохранить задания</button>
         </div>
     </div>
     <script>
@@ -95,21 +97,93 @@
             event.target.parentElement.remove()
         })
 
-        getdata.onclick = function () {
+        // function createTaskDiv() {
+        //     let taskBox = document.createElement('div')
+        //     taskBox.classList.add('task')
+
+        //     let checkTaskExecute = document.createElement('button')
+        //     checkTaskExecute.className = 'buttonCheckExecute'
+
+        //     let deleteTask = document.createElement('button')
+        //     deleteTask.className = 'deleteTaskButton'
+
+        //     let task = document.createElement('p')
+        //     task.textContent = inputTask.value
+        // }
+
+        getData.onclick = function () {
             fetch(`/task-list/index-backend.php?login=${document.getElementById("inputLogin").value}&password=${document.getElementById("inputPassword").value}`)
                 .then(response => response.json())
-                .then(json => console.log(json))
+                .then(json => funcGetData(json))
                 .catch(error => console.log(error))
         }
 
-        postdata.onclick = function () {
+        postData.onclick = function () {
+
+            let user = getUserData()
+            if (user["login"] == '' || user["password"] == '') {
+                alert('проверьте логин или пароль!')
+                return
+            }
+
+            let arrTasks = collectAllTasks()
+            console.log(arrTasks)
+            if (arrTasks.length == 0) {
+                alert('нет активных задач!')
+                return
+            }
+
+            let request = {
+                user: user,
+                tasks: arrTasks
+            }
+            console.log(request)
             fetch('/task-list/index-backend.php', {
                 method: 'POST',
-                body: new FormData(authorizationForm)
+                body: JSON.stringify(request)
             });
-        };
+        }
 
+        function getUserData() {
+            return {
+                login: document.getElementById("inputLogin").value,
+                password: document.getElementById("inputPassword").value
+            }
+        }
 
+        function collectAllTasks() {
+            let arr = []
+            let arrTags = document.querySelectorAll('p')
+            arrTags.forEach(function (tag, i) {
+                arr.push(tag.textContent)
+            })
+            return arr
+        }
+
+        function funcGetData(answer) {
+            if (answer == false) {
+                alert('не верное имя пользователя или пароль! Возможно у вас нет сохраненных заданий')
+            } else {
+                answer.forEach(function (elem) {
+                    let taskBox = document.createElement('div')
+                    taskBox.classList.add('task')
+
+                    let checkTaskExecute = document.createElement('button')
+                    checkTaskExecute.className = 'buttonCheckExecute'
+
+                    let deleteTask = document.createElement('button')
+                    deleteTask.className = 'deleteTaskButton'
+
+                    let task = document.createElement('p')
+                    task.textContent = elem
+
+                    taskBar.append(taskBox)
+                    taskBox.prepend(deleteTask)
+                    taskBox.prepend(task)
+                    taskBox.prepend(checkTaskExecute)
+                })
+            }
+        }
     </script>
 </body>
 
